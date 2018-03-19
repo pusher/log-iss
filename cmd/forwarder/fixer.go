@@ -80,6 +80,9 @@ func fix(req *http.Request, r io.Reader, remoteAddr string, logplexDrainToken st
 			}
 			messageWriter.Write(b)
 		}
+		if len(b) == 0 || b[len(b)-1] != '\n' {
+			messageWriter.WriteString("\n")
+		}
 
 		messageLenWriter.WriteString(strconv.Itoa(messageWriter.Len()))
 		messageLenWriter.WriteString(" ")
